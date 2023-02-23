@@ -1,0 +1,19 @@
+{
+   "name": "procedural-map",
+   "version": "1.0.0",
+   "description": "",
+   "author": "",
+   "license": "MIT",
+   "scripts": {
+      "dev": "vite",
+      "build": "vite build",
+      "serve": "vite preview"
+   },
+   "devDependencies": {
+      "vite": "^4.0.4"
+   },
+   "dependencies": {
+      "simplex-noise": "^4.0.1",
+      "three": "^0.148.0"
+   }
+}
