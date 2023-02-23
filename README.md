@@ -8,7 +8,7 @@ With Three js & Vite
 
 ```
 npm install
-npm
+npm run dev
 ```
 
 Check and install updated packages (Optional)
