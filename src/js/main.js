@@ -50,17 +50,17 @@ const sizes = {
  const MAX_HEIGHT = 10;
  
  (async function() {
-   let envmapTexture = await new RGBELoader().loadAsync("src/assets/envmap.hdr");
+   let envmapTexture = await new RGBELoader().loadAsync("./assets/envmap.hdr");
    let rt = pmrem.fromEquirectangular(envmapTexture);
    envmap = rt.texture;
  
    let textures = {
-     dirt: await new THREE.TextureLoader().loadAsync("src/assets/dirt.png"),
-     dirt2: await new THREE.TextureLoader().loadAsync("src/assets/dirt2.jpg"),
-     grass: await new THREE.TextureLoader().loadAsync("src/assets/grass.jpg"),
-     sand: await new THREE.TextureLoader().loadAsync("src/assets/sand.jpg"),
-     water: await new THREE.TextureLoader().loadAsync("src/assets/water.jpg"),
-     stone: await new THREE.TextureLoader().loadAsync("src/assets/stone.png"),
+     dirt: await new THREE.TextureLoader().loadAsync("./assets/dirt.png"),
+     dirt2: await new THREE.TextureLoader().loadAsync("./assets/dirt2.jpg"),
+     grass: await new THREE.TextureLoader().loadAsync("./assets/grass.jpg"),
+     sand: await new THREE.TextureLoader().loadAsync("./assets/sand.jpg"),
+     water: await new THREE.TextureLoader().loadAsync("./assets/water.jpg"),
+     stone: await new THREE.TextureLoader().loadAsync("./assets/stone.png"),
    };
  
    const noise2D = createNoise2D();
