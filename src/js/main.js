@@ -4,10 +4,20 @@ import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
  import { mergeBufferGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { createNoise2D } from 'simplex-noise';
  
- // envmap https://polyhaven.com/a/herkulessaulen
- 
- const scene = new THREE.Scene();
- scene.background = new THREE.Color("#FFEECC");
+// envmap https://polyhaven.com/a/herkulessaulen
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color("#FFEECC");
+
+const loadingManager = new THREE.LoadingManager();
+
+loadingManager.onLoad = () => {
+  const loadingScreen = document.getElementById( 'loading-screen' );
+  loadingScreen.classList.add( 'fade-out' );
+  
+  // optional: remove loader from DOM via event listener
+  loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
+}
  
  const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 1000);
  camera.position.set(-17,31,33);
@@ -50,17 +60,17 @@ const sizes = {
  const MAX_HEIGHT = 10;
  
  (async function() {
-   let envmapTexture = await new RGBELoader().loadAsync("./assets/envmap.hdr");
+   let envmapTexture = await new RGBELoader(loadingManager).loadAsync("./assets/envmap.hdr");
    let rt = pmrem.fromEquirectangular(envmapTexture);
    envmap = rt.texture;
  
    let textures = {
-     dirt: await new THREE.TextureLoader().loadAsync("./assets/dirt.png"),
-     dirt2: await new THREE.TextureLoader().loadAsync("./assets/dirt2.jpg"),
-     grass: await new THREE.TextureLoader().loadAsync("./assets/grass.jpg"),
-     sand: await new THREE.TextureLoader().loadAsync("./assets/sand.jpg"),
-     water: await new THREE.TextureLoader().loadAsync("./assets/water.jpg"),
-     stone: await new THREE.TextureLoader().loadAsync("./assets/stone.png"),
+     dirt: await new THREE.TextureLoader(loadingManager).loadAsync("./assets/dirt.png"),
+     dirt2: await new THREE.TextureLoader(loadingManager).loadAsync("./assets/dirt2.jpg"),
+     grass: await new THREE.TextureLoader(loadingManager).loadAsync("./assets/grass.jpg"),
+     sand: await new THREE.TextureLoader(loadingManager).loadAsync("./assets/sand.jpg"),
+     water: await new THREE.TextureLoader(loadingManager).loadAsync("./assets/water.jpg"),
+     stone: await new THREE.TextureLoader(loadingManager).loadAsync("./assets/stone.png"),
    };
  
    const noise2D = createNoise2D();
@@ -294,3 +304,7 @@ window.addEventListener('resize', () => {
  
    scene.add(mesh);
  }
+
+ function onTransitionEnd( event ) {
+	event.target.remove();
+}
